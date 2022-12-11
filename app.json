@@ -13,7 +13,7 @@
     },
     "plugins":[
       [
-        "expo-media-library"{
+        "expo-media-library", {
           "photosPermissions": "Allow to access your photos.",
           "savePhotosPermission": "Allow to save photos.",
           "isAccessMediaLocationEnabled": "true"
