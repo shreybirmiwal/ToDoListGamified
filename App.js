@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
 import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, ScrollView } from 'react-native';
 import Task from './components/task';
+import Completed from './components/completed';
 
 export default function App() {
   const [task, setTask] = useState();
   const [taskItems, setTaskItems] = useState([]);
+  const [finishedItems, setFinishedItems] = useState([]);
 
   const handleAddTask = () => {
     Keyboard.dismiss();
@@ -14,8 +16,19 @@ export default function App() {
 
   const completeTask = (index) => {
     let itemsCopy = [...taskItems];
+    let holder = itemsCopy[index];
     itemsCopy.splice(index, 1);
     setTaskItems(itemsCopy)
+
+    let finishedItemsCopy = [...finishedItems];
+    finishedItemsCopy.push(holder);
+    setFinishedItems(finishedItemsCopy);
+  }
+
+  const DestroyTask = (index) =>{
+    let itemsCopy = [...finishedItems];
+    itemsCopy.splice(index, 1);
+    setFinishedItems(itemsCopy);
   }
 
   return (
@@ -38,6 +51,16 @@ export default function App() {
                 </TouchableOpacity>
               )
             })
+            
+          }
+          {
+            finishedItems.map((item, index) => {
+              return (
+                <TouchableOpacity key={index}  onPress={() => DestroyTask(index)}>
+                  <Completed text={item} /> 
+                </TouchableOpacity>              )
+            })
+            
           }
         </View>
       </View>
