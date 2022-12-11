@@ -3,7 +3,7 @@ import {shareAsync} from 'expo-sharing'
 import { useEffect, useRef, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, Button, ImageBackground } from 'react-native';
 
-const TakePicture = () =>{
+const TakePicture = ({navigation}) =>{
 
     let cameraRef = useRef();
     const [hasCameraPermission, setHasCameraPermission] = useState();
