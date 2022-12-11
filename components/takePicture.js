@@ -1,23 +1,18 @@
 import {Camera} from 'expo-camera';
 import {shareAsync} from 'expo-sharing'
-import * as MediaLibrary from 'expo-media-library'
 import { useEffect, useRef, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, Button } from 'react-native';
-import { SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Button, ImageBackground } from 'react-native';
 
 const TakePicture = () =>{
 
     let cameraRef = useRef();
     const [hasCameraPermission, setHasCameraPermission] = useState();
-    const [hasMediaPermission, setHasMediaPermission] = useState();
     const [photo, setPhoto] = useState();
 
     useEffect(() => {
         (async () => {
           const cameraPermission = await Camera.requestCameraPermissionsAsync();
-          const mediaLibraryPermission = await MediaLibrary.requestPermissionsAsync();
           setHasCameraPermission(cameraPermission.status === "granted");
-          setHasMediaPermission(mediaLibraryPermission.status === "granted");
         })();
       }, []);
 
@@ -28,7 +23,6 @@ const TakePicture = () =>{
     }
 
         let takePic = async () => {
-
             let options = {
             quality: 1,
             base64: true,
@@ -40,24 +34,17 @@ const TakePicture = () =>{
       };
     
       if (photo) {
-        let sharePic = () => {
+        let sendPhoto = () => {
           shareAsync(photo.uri).then(() => {
             setPhoto(undefined);
           });
         };
-    
-        let savePhoto = () => {
-          MediaLibrary.saveToLibraryAsync(photo.uri).then(() => {
-            setPhoto(undefined);
-          });
-        };
-    
+
         return (
-          <SafeAreaView style={styles.container}>
-            <Image style={styles.preview} source={{ uri: "data:image/jpg;base64," + photo.base64 }} />
-            {hasMediaPermission ? <Button title="Save to camera role" onPress={savePhoto} /> : undefined}
-            <Button title="Redo" onPress={() => setPhoto(undefined)} />
-          </SafeAreaView>
+            <ImageBackground style={styles.preview} source={{ uri: "data:image/jpg;base64," + photo.base64 }}>
+                <Button title="X"  style={styles.cancelPic} onPress={() => setPhoto(undefined)} />
+                <Button title="Send >" style={styles.sendPic} onPress={() => sendPhoto()} />
+            </ImageBackground>
         );
       }
 
@@ -93,11 +80,17 @@ const styles = StyleSheet.create({
         marginTop: 100
     },
     preview:{
-        alignSelf: 'stretch',
-        flex: 1
+        flex: 1,
+        alignContent: 'center',
+        justifyContent: 'center'
+    },
+    cancelPic:{
+
+    },
+    sendPic:{
+
     }
 })
 
+export default TakePicture
 
-
-export default TakePicture;
