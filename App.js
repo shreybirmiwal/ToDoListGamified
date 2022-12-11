@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, ScrollView } from 'react-native';
 import Task from './components/task';
 import Completed from './components/completed';
+import takePicture from './components/takePicture';
 
 export default function App() {
   const [task, setTask] = useState();
@@ -15,6 +16,7 @@ export default function App() {
   }
 
   const completeTask = (index) => {
+
     let itemsCopy = [...taskItems];
     let holder = itemsCopy[index];
     itemsCopy.splice(index, 1);
@@ -33,6 +35,8 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <takePicture></takePicture>
+
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1

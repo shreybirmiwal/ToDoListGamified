@@ -11,6 +11,15 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "plugins":[
+      [
+        "expo-media-library"{
+          "photosPermissions": "Allow to access your photos.",
+          "savePhotosPermission": "Allow to save photos.",
+          "isAccessMediaLocationEnabled": "true"
+        }
+      ]
+    ],
     "updates": {
       "fallbackToCacheTimeout": 0
     },
