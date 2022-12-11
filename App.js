@@ -25,6 +25,7 @@ export default function App() {
     let finishedItemsCopy = [...finishedItems];
     finishedItemsCopy.push(holder);
     setFinishedItems(finishedItemsCopy);
+
   }
 
   const DestroyTask = (index) =>{
@@ -35,7 +36,54 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <TakePicture></TakePicture>     
+
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1
+        }}
+        keyboardShouldPersistTaps='handled'
+      >
+
+      <View style={styles.tasksWrapper}>
+        <Text style={styles.sectionTitle}>Today's tasks</Text>
+        <View style={styles.items}>
+          {
+            taskItems.map((item, index) => {
+              return (
+                <TouchableOpacity key={index}  onPress={() => completeTask(index)}>
+                  <Task text={item} /> 
+                </TouchableOpacity>
+              )
+            })
+            
+          }
+          {
+            finishedItems.map((item, index) => {
+              return (
+                <TouchableOpacity key={index}  onPress={() => DestroyTask(index)}>
+                  <Completed text={item} /> 
+                </TouchableOpacity>              )
+            })
+            
+          }
+        </View>
+      </View>
+        
+      </ScrollView>
+
+
+      <KeyboardAvoidingView 
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.writeTaskWrapper}
+      >
+        <TextInput style={styles.input} placeholder={'Write a task'} value={task} onChangeText={text => setTask(text)} />
+        <TouchableOpacity onPress={() => handleAddTask()}>
+          <View style={styles.addWrapper}>
+            <Text style={styles.addText}>+</Text>
+          </View>
+        </TouchableOpacity>
+      </KeyboardAvoidingView>
+      
     </View>
   );
 }
