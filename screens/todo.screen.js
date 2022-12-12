@@ -1,12 +1,9 @@
 import React, {useState} from 'react';
 import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, ScrollView } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import Task from '../components/task';
 import Completed from '../components/completed';
 
-const ToDoScreen = ()=> {
-
-  const navigation = useNavigation();
+const ToDoScreen = ({navigation})=> {
   
   const [task, setTask] = useState();
   const [taskItems, setTaskItems] = useState([]);
@@ -29,7 +26,8 @@ const ToDoScreen = ()=> {
     finishedItemsCopy.push(holder);
     setFinishedItems(finishedItemsCopy);
 
-    navigation.navigate('takePicture')
+    navigation.navigate("takepicturepage")
+
   }
 
   const DestroyTask = (index) =>{

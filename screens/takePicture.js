@@ -35,9 +35,8 @@ const TakePicture = ({navigation}) =>{
     
       if (photo) {
         let sendPhoto = () => {
-          shareAsync(photo.uri).then(() => {
             setPhoto(undefined);
-          });
+            navigation.navigate("todopage")
         };
 
         return (
