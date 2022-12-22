@@ -3,7 +3,8 @@ import ToDoScreen from './screens/todo.screen'
 import TakePicture from './screens/takePicture';
 import FeedScreen from './screens/FeedScreen'
 import LoginScreen from './screens/LoginScreen';
-import FeedScreen from './screens/FeedScreen';
+import SplashScreen from './screens/SplashScreen';
+import SignupScreen from './screens/SignupScreen';
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -14,6 +15,18 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen
+          name="splashpage"
+          component={SplashScreen}
+          options={{headerShown: false}}
+        />
+
+            
+        <Stack.Screen
+          name="signuppage"
+          component={SignupScreen}
+          options={{headerShown: false}}
+        />
 
         <Stack.Screen
           name="loginpage"
@@ -38,13 +51,11 @@ export default function App() {
           component={TakePicture}
           options={{headerShown: false}}
         />
-
         <Stack.Screen
-          name="feed"
-          component={FeedScreen}
+          name="spashpage"
+          component={SplashScreen}
           options={{headerShown: false}}
         />
-
       </Stack.Navigator>
     </NavigationContainer>
   );
