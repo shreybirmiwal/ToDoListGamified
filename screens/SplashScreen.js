@@ -1,8 +1,6 @@
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
 import React from 'react'
 
-
-
 const SplashScreen = ({navigation}) => {
 
     const LogInScreen = () => {

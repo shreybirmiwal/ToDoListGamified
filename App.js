@@ -6,8 +6,9 @@ import LoginScreen from './screens/LoginScreen';
 import SplashScreen from './screens/SplashScreen';
 import SignupScreen from './screens/SignupScreen';
 import FeedScreen from './screens/FeedScreen';
-
+import { useEffect } from 'react';
 import { StyleSheet } from 'react-native';
+import { auth } from './firebase';
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -40,7 +41,7 @@ function HomeTabs() {
           // You can return any component that you like here!
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: 'tomato',
+        tabBarActiveTintColor: '#55BCF6',
         tabBarInactiveTintColor: 'gray',
         headerShown:false,
         tabBarShowLabel:false,
@@ -55,6 +56,17 @@ function HomeTabs() {
 
 
 export default function App() {
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      if (user) {
+        navigation.replace("HomeTabs")
+      }
+    })
+
+    return unsubscribe
+  }, [])
+
   return (
     <NavigationContainer>
 

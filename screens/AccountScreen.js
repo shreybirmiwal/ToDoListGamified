@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/core'
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import {auth} from '../firebase'
+import {db, auth} from '../firebase'
 
 const AccountScreen = () => {
   const navigation = useNavigation()
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
    button: {
-    backgroundColor: '#0782F9',
+    backgroundColor: '#55BCF6',
     width: '60%',
     padding: 15,
     borderRadius: 10,

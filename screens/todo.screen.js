@@ -26,7 +26,7 @@ const ToDoScreen = ({navigation})=> {
     finishedItemsCopy.push(holder);
     setFinishedItems(finishedItemsCopy);
 
-    navigation.navigate("takepicturepage")
+    navigation.replace("takepicturepage")
 
   }
 

@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/core'
 import React, { useEffect, useState } from 'react'
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import {auth} from '../firebase'
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
 
 export default function SignupScreen() {
   const navigation = useNavigation()
@@ -20,10 +21,12 @@ export default function SignupScreen() {
   }, [])
 
   const handleSignUp = () => {
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then(userCredentials => {
+    createUserWithEmailAndPassword(auth, email, password).then(userCredentials => {
         const user = userCredentials.user;
+        updateProfile(user, {
+          displayName: username
+        });
+
         console.log('Registered with:', user.email);
       })
       .catch(error => alert(error.message))

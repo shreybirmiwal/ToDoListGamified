@@ -1,9 +1,11 @@
 import {Camera} from 'expo-camera';
 import { useEffect, useRef, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, Button, ImageBackground } from 'react-native';
+import { collection, addDoc } from "firebase/firestore";
+import { auth, db } from '../firebase';
 
 const TakePicture = ({navigation}) =>{
-
+    const dbRef = collection(db, "Post");
     let cameraRef = useRef();
     const [hasCameraPermission, setHasCameraPermission] = useState();
     const [photo, setPhoto] = useState();
@@ -31,11 +33,18 @@ const TakePicture = ({navigation}) =>{
         let newPhoto = await cameraRef.current.takePictureAsync(options);
         setPhoto(newPhoto);
       };
-    
+
       if (photo) {
         let sendPhoto = () => {
+            addDoc(dbRef, {
+                image: "uri",
+                likes: 0,
+                task: "math hw",
+                user: auth.currentUser?.displayName
+            })
             setPhoto(undefined);
-            navigation.navigate("todopage")
+
+            navigation.navigate("HomeTabs")
         };
 
         return (
